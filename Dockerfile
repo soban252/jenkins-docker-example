@@ -1,5 +1,8 @@
-FROM openjdk
-COPY target/*.jar /
-jar cmvf META-INF/MANIFEST.MF my-app-1.0-SNAPSHOT.jarjar 
+
+FROM maven:3.8-jdk-11
+RUN mkdir /project
+COPY . /project
+WORKDIR /project
+RUN mvn clean package -DskipTests
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/my-app-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/demo-0.0.1-SNAPSHOT.jar"]
